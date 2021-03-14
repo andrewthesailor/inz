@@ -1,28 +1,33 @@
 package com.szczepanika.scheduler.controller;
 
+import com.szczepanika.scheduler.model.json.User;
 import com.szczepanika.scheduler.model.parameters.Timeslot;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Base64;
 import java.util.List;
 
-@Controller
+@RestController
+@CrossOrigin
 public class UserController {
 
-    @GetMapping({"/", "/user"})
-    public String user(Model model){
-        return "index";
+    @PostMapping("/login")
+    public boolean login(@RequestBody User user) {
+        return true;
     }
 
-    @GetMapping("/getTimeslots")
-    public List<Timeslot> getTimeslots(){
-        return null;
+    @RequestMapping("/user")
+    public Principal user(HttpServletRequest request) {
+        String authToken = request.getHeader("Authorization")
+                .substring("Basic".length()).trim();
+        return () ->  new String(Base64.getDecoder()
+                .decode(authToken)).split(":")[0];
     }
-
     @PostMapping("/setTimeslots")
     public ResponseEntity setTimeslots(@RequestBody List<Timeslot> timeslots){
 
