@@ -7,14 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Filter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Setter
@@ -31,7 +26,7 @@ import java.util.List;
         @AttributeOverride(name = "auditRd", column = @Column(name = "TEACHER_AUDIT_RD"))
 })
 @Filter(name = "removalTest", condition = "this.auditRd IS NULL")
-public class Teacher extends AbstractAuditing implements UserDetails{
+public class Teacher extends AbstractAuditing{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_TEACHER_ID")
@@ -63,36 +58,4 @@ public class Teacher extends AbstractAuditing implements UserDetails{
     private List<Timeslot>availableTimeslots;
 
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(isAdmin()){
-            return Collections.singletonList(new SimpleGrantedAuthority("ADMIN"));
-        }
-        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
-    }
-
-    @Override
-    public String getUsername() {
-        return getEmail();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
