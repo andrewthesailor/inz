@@ -9,18 +9,18 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login() {
-        return "login";
+        return "loginPage";
     }
 
     @RequestMapping({"/index", "/"})
     public String index() {
-        return "login";
+        return "index";
     }
 
     // Login form with error
     @RequestMapping("/login-error.html")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
-        return "login";
+        return "loginPage";
     }
 }
