@@ -1,11 +1,10 @@
-package com.szczepanika.scheduler.service;
+package com.szczepanika.scheduler.dao;
 
 import com.szczepanika.scheduler.model.parameters.Timeslot;
 
 import java.util.List;
 
-public interface TimetableService {
-
+public interface TimetableDao {
     List<Timeslot>getTimeslots();
 
 }

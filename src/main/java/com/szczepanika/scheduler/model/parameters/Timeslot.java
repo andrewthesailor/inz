@@ -38,6 +38,9 @@ public class Timeslot extends AbstractAuditing{
     @Column(name = "TIMESLOT_SLOT")
     private Integer slot;
 
+    @Column(name = "TIMESLOT_ACTIVE")
+    private Boolean active;
+
     @Override
     public boolean equals(Object obj){
         if (this == obj)

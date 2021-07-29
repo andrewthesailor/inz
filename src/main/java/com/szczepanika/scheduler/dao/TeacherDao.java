@@ -4,7 +4,7 @@ import com.szczepanika.scheduler.model.parameters.Teacher;
 
 public interface TeacherDao {
 
-    public Teacher getTeacherByEmail(String email);
+    Teacher getTeacherByEmail(String email);
 
 
 }
